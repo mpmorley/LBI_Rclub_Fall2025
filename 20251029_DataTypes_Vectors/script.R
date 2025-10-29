@@ -1,3 +1,7 @@
+# ------------------------------------------------------------
+# 20251029 MPM R Club Lesson 1
+# ------------------------------------------------------------
+
 # Assignment operators
 
 # Assign the value 10 to a variable named my_variable_name_1 using the standard R assignment operator "<-"
