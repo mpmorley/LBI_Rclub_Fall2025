@@ -3,7 +3,6 @@
 library(tidyverse)
 
 
-
 meta <- readRDS('MetaData.RDS')
 
 
@@ -86,7 +85,9 @@ ggplot(meta, aes(x = developmental_stage, y = nFeature_RNA)) +
   geom_violin(na.rm = TRUE)
 
 # Only do this if those levels exist in your data (otherwise you’ll get NAs)
-stage_levels <- c("Day0", "Neonate", "Infant", "Toddler", "Teen", "Adult")
+stage_levels <- c("Day0", "Neonate", "Infant", "Toddler")
+
+meta$developmental_stage <- factor(meta$developmental_stage, levels = stage_levels)
 
 meta <- meta |>
   mutate(developmental_stage = factor(developmental_stage, levels = stage_levels) |> fct_drop())
@@ -126,11 +127,11 @@ ggplot(meta, aes(x = donor_id, y = percent.mito, color = hybrid_call)) +
   geom_boxplot(outlier.shape = NA, na.rm = TRUE)
 
 #Let's add the points back..   
-  
+
 ggplot(meta, aes(x = donor_id, y = percent.mito, color = hybrid_call)) +
-    geom_boxplot(outlier.shape = NA, na.rm = TRUE) +
+  geom_boxplot(outlier.shape = NA, na.rm = TRUE) +
   geom_jitter(width = 0.2, height = 0, alpha = 0.25, size = 0.7, na.rm = TRUE) 
-  
+
 #Well that's ugly. 
 #We need to dodge the the points now. 
 ggplot(meta, aes(x = donor_id, y = percent.mito, color = hybrid_call, fill = hybrid_call)) +
@@ -144,7 +145,7 @@ ggplot(meta, aes(x = donor_id, y = percent.mito, color = hybrid_call, fill = hyb
   )
 
 
-  
+
 
 
 #We can do the same for a violin plot as well. 
@@ -233,7 +234,7 @@ plot
 plot+xlab('Donor Name') +
   ylab('% Mitochondrial Reads') +
   ggtitle("A Plot")
-  
+
 # We can save this again to an object. 
 
 plot <- plot+xlab('Donor Name') +
@@ -285,11 +286,3 @@ plot + cowplot::theme_cowplot()
 
 #Cowplot has an even more basic verion of void as well. 
 plot + cowplot::theme_nothing()
-
-
-
-
-
-
-
-
